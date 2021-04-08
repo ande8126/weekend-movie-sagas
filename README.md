@@ -14,6 +14,9 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 [x] setup database
 [ ] Home page
     [ ] When a movie poster is clicked, a user should be brought to the /details view for that movie.
+        [ ] create details component
+        [ ] add route and hashrouter that works for each click -- check Edan's lecture
+        [ ] wrap Link around movie poster
     [ ] Have a way to get to the Add Movie Page
 [ ] Details page
     [ ] show all details including ALL genres for the selected movie. 
