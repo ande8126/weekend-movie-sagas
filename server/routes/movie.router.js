@@ -25,7 +25,7 @@ router.get('/:movieId', ( req, res )=>{
   //need movie description from movies table and genres from genre table
   //join statement in query
   const queryText = 
-  `SELECT "movies".title AS "movie", "movies".description, "genres".name AS "genre"
+  `SELECT "movies".title AS "movie", "movies".poster AS "poster", "movies".description, "genres".name AS "genre"
     FROM "movies_genres"
     JOIN "movies" ON "movies".id = "movies_genres".movie_id
     JOIN "genres" ON "genres".id = "movies_genres".genre_id

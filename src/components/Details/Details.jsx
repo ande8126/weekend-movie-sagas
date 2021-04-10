@@ -13,6 +13,7 @@ function Details(){
     return (
         <div>
             <h2>{movie[0].movie}</h2>
+            <img src={movie[0].poster} />
             <h3>Description:</h3>
             <p>{movie[0].description}</p>
             <h4>Genres:</h4>
