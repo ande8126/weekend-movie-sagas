@@ -4,7 +4,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import './MovieList.css'
 
 function MovieList() {
-
+    //needed to use history
+    const history = useHistory();
+    //needed to use dispatch
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
 
@@ -16,6 +18,9 @@ function MovieList() {
         //send dispatch
         //new type needed for GET route for clicked movie
         dispatch({ type: 'FETCH_SPECIFIC_MOVIE', payload: movieId })
+        //link to details page
+        history.push('/details');
+
     }
     
     

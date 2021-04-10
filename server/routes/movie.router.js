@@ -20,9 +20,24 @@ router.get('/', (req, res) => {
 
 //get route for getting clickec movie to gallery
 router.get('/:movieId', ( req, res )=>{
-  movieId = req.params
-  console.log( 'in movie details GET', req.params );
-  res.send( 'merp' );
+  movieId = req.params["movieId"]
+  console.log( 'in movie details GET', movieId );
+  //need movie description from movies table and genres from genre table
+  //join statement in query
+  const queryText = 
+  `SELECT "movies".title AS "movie", "movies".description, "genres".name AS "genre"
+    FROM "movies_genres"
+    JOIN "movies" ON "movies".id = "movies_genres".movie_id
+    JOIN "genres" ON "genres".id = "movies_genres".genre_id
+    WHERE "movies".id = $1`
+  pool.query( queryText, [ movieId ] )
+  .then( ( results )=>{
+    res.send( results.rows );
+  })
+  .catch ( ( err )=>{
+    console.log( 'err in movieId GET', err );
+    res.sendStatus( 500 );
+  })
 })
 
 //post route for adding movies
