@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
-router.get('/', (req, res) => {
 
+//get route for all movies in db
+router.get('/', (req, res) => {
+  console.log( 'in original get route for all movies' );
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
@@ -16,6 +18,14 @@ router.get('/', (req, res) => {
 
 });
 
+//get route for getting clickec movie to gallery
+router.get('/:movieId', ( req, res )=>{
+  movieId = req.params
+  console.log( 'in movie details GET', req.params );
+  res.send( 'merp' );
+})
+
+//post route for adding movies
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie

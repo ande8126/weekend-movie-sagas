@@ -7,8 +7,12 @@ import { useSelector } from 'react-redux'
 
 function App() {
 
+  //NOT SURE I NEED THIS
   //props down to Gallery b/c its going to be a 'dumb' component
-  const movies = useSelector(store => store.movies);
+  //const movies = useSelector(store => store.movies);
+  //props function to MovieList that opens /details -
+
+
 
   return (
     <div className="App">
@@ -19,7 +23,7 @@ function App() {
         </Route>
         <Route exact path="/details">
           {/* Details page */}
-          <Details movies={movies}/>
+          <Details />
         </Route>
         <Route exact path="/add">
           {/* Add Movie page */}

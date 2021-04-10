@@ -31,12 +31,12 @@ function* fetchAllMovies() {
 }
 
 //This is the saga for getting a specific movie from the db
-function* fetchOneMovie(){
+function* fetchOneMovie( action ){
     //get the clicked movie from the db
     try{
-        const movie = yield axios.get('/api/movie');
-        console.log( 'get specific movie:', movie.data );
-        yield put({ type: 'FETCH_SPECIFIC_MOVIE', payload: movie.data })
+        const movie = yield axios.get('/api/movie/' + action.payload);
+        console.log( 'get specific movie:', action.payload );
+        yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
         
     } catch{
         console.log( 'error in fetchOneMovie saga' );
@@ -59,9 +59,10 @@ const movies = (state = [], action) => {
 }
 
 // This reducer is for opening specific movies in /details
-const specificMovie = ( state='', action ) =>{
-    if ( action.type === 'FETCH_SPECIFIC_MOVIE' ){
+const specificMovie = ( state={}, action ) =>{
+    if ( action.type === 'SET_SPECIFIC_MOVIE' ){
         console.log( 'in specificMovie reducer', action );
+        state = action.payload;
     }
     return state;
 }
