@@ -59,7 +59,7 @@ const movies = (state = [], action) => {
 }
 
 // This reducer is for opening specific movies in /details
-const specificMovie = ( state={}, action ) =>{
+const specificMovie = ( state=[], action ) =>{
     if ( action.type === 'SET_SPECIFIC_MOVIE' ){
         console.log( 'in specificMovie reducer', action );
         state = action.payload;

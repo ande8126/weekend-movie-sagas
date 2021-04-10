@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import MovieList from '../MovieList/MovieList';
+import { Link } from 'react-router-dom';
 
 function Details(){
 
@@ -17,9 +17,13 @@ function Details(){
             <p>{movie[0].description}</p>
             <h4>Genres:</h4>
             <ul>
-                {movie.map( genre=> <li>{genre.genre}</li>)}
+                {movie.map( genre=> <li key={genre.id}>{genre.genre}</li>)}
             </ul>
-        </div>
+            <Link to="/">
+                <button>Back</button>
+            </Link>
+            
+        </div> 
     )
 }
 
