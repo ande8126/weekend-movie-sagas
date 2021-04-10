@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App.js';
+import App from './components/App/App.jsx';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
@@ -13,7 +13,8 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
-    yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery( 'FETCH_MOVIES', fetchAllMovies );
+    yield takeEvery( 'FETCH_SPECIFIC_MOVIE', fetchOneMovie )
 }
 
 function* fetchAllMovies() {
@@ -29,6 +30,21 @@ function* fetchAllMovies() {
         
 }
 
+//This is the saga for getting a specific movie from the db
+function* fetchOneMovie(){
+    //get the clicked movie from the db
+    try{
+        const movie = yield axios.get('/api/movie');
+        console.log( 'get specific movie:', movie.data );
+        yield put({ type: 'FETCH_SPECIFIC_MOVIE', payload: movie.data })
+        
+    } catch{
+        console.log( 'error in fetchOneMovie saga' );
+    }
+}
+
+//saga for getGenres
+
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
@@ -40,6 +56,14 @@ const movies = (state = [], action) => {
         default:
             return state;
     }
+}
+
+// This reducer is for opening specific movies in /details
+const specificMovie = ( state='', action ) =>{
+    if ( action.type === 'FETCH_SPECIFIC_MOVIE' ){
+        console.log( 'in specificMovie reducer', action );
+    }
+    return state;
 }
 
 // Used to store the movie genres
@@ -57,6 +81,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        specificMovie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

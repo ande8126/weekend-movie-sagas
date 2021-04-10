@@ -20,7 +20,12 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
     [ ] Have a way to get to the Add Movie Page
 [ ] Details page
     [ ] show all details including ALL genres for the selected movie. 
-    [ ] You will need to store this data in redux!
+        [ ] dispatch from details page
+        [ ] useSelector to draw down from redux
+        [ ] show on DOM
+        [ ] Reducer in index.js
+        [ ] detailsSaga with axios call
+        [ ] detailsSaga put
     [ ] Hint - You can make a GET request for a specific movie. Remember req.params and :id?
     [ ] The details page should have a Back to List button, which should bring the user to the Home/List Page
     [ ] Base functionality does not require the movie details to load correctly after refresh of the browser.
