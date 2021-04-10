@@ -11,7 +11,7 @@ function Details(){
 
 
     return (
-        <div>
+        <>
             <h2>{movie[0].movie}</h2>
             <img src={movie[0].poster} />
             <h3>Description:</h3>
@@ -24,7 +24,7 @@ function Details(){
                 <button>Back</button>
             </Link>
             
-        </div> 
+        </> 
     )
 }
 
