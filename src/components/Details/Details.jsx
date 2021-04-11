@@ -1,11 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import Nav from '../Nav/Nav'
 
 function Details(){
-
+    const dispatch = useDispatch();
     ////STRETCH GOAL
+    useEffect(() => {
+        dispatch({ type: 'GET_DETAILS' }) //stretch - need redux store with genres too
+    }, []);
 
     //params setup
     const params = useParams();
@@ -17,14 +20,14 @@ function Details(){
     })
 
     //get one movie at db id from movie array
-    let movieDetails = movies[movieId]
+    let movieDetails = movies[Number(movieId)-1]
 
 
 
     return (
         <>
             <Nav />
-            <p>{JSON.stringify(movies)}</p>
+            <p>{JSON.stringify(movieDetails)}</p>
             {/* <h2>{movie[0].title}</h2>
             <img src={movie[0].poster} />
             <h3>Description:</h3>

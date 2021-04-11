@@ -12,11 +12,11 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 
 [x] npm install
 [x] setup database
-[ ] Home page
-    [ ] When a movie poster is clicked, a user should be brought to the /details view for that movie.
+[x] Home page
+    [x] When a movie poster is clicked, a user should be brought to the /details view for that movie.
         [x] create details component
         [x] add route and hashrouter that works for each click -- check Edan's lecture
-    [ ] Have a way to get to the Add Movie Page
+    [x] Have a way to get to the Add Movie Page
 [x] Details page
     [x] show all details including ALL genres for the selected movie. 
         [x] useSelector to draw down from redux

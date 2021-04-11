@@ -5,7 +5,7 @@ import Details from '../Details/Details';
 import AddMovie from '../AddMovie/AddMovie';
 import Nav from '../Nav/Nav';
 
-const SiteRouter = ({movie}) => {
+const SiteRouter = () => {
     return (
         <>
             <Router>  
@@ -15,9 +15,9 @@ const SiteRouter = ({movie}) => {
                 <Route exact path="/list">
                     <MovieList />
                 </Route>
-                <Route exact path="/details">
+                <Route exact path="/list/:id">
                     {/* Details page */}
-                    <Details movie={movie}/>
+                    <Details />
                 </Route>
                 <Route exact path="/add">
                     {/* Add Movie page */}

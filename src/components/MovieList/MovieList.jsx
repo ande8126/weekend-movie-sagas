@@ -32,7 +32,6 @@ function MovieList() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
-        dispatch({ type: 'GET_DETAILS' }) //stretch - need redux store with genres too
     }, []);
 
     return (
