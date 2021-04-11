@@ -40,7 +40,7 @@ function* getDetails( action ){
         yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
         
     } catch{
-        console.log( 'error in fetchOneMovie saga' );
+        console.log( 'error in getDetails saga' );
     }
 }
 

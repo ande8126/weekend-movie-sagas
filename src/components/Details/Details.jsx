@@ -20,23 +20,23 @@ function Details(){
         return store.specificMovie
     })
 
-    //get one movie at db id from movie array
-    let thisMovie = movies[Number(movieId)-1]
+    //get one movie
+    let thisMovie = movies[0]
 
 
 
     return (
         <>
             <Nav />
-            <p>{JSON.stringify(movies)}</p>
-            {/* <h2>{movie[0].title}</h2>
-            <img src={movie[0].poster} />
+            <p>{JSON.stringify(thisMovie)}</p>
+            <h2>{thisMovie.title}</h2>
+            <img src={thisMovie.poster} />
             <h3>Description:</h3>
-            <p>{movie[0].description}</p>
+            <p>{thisMovie.description}</p>
             <h4>Genres:</h4>
             <ul>
-                {movie.map( genre=> <li key={genre.id}>{genre.genre}</li>)}
-            </ul> */}
+                {movies.map( (genre, index)=> <li key={index}>{genre.genre}</li>)}
+            </ul>
             <Link to="/list">
                 <button>Back</button>
             </Link>

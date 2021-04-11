@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 const AddMovie = () => {
@@ -108,6 +109,9 @@ const AddMovie = () => {
                 {genres.map( (genre)=> <li>{genre}</li>)}
             </ul> */}
             <button onClick={()=>addMovie( tempMovie )}>Add</button>
+            <Link to="/">
+                <button>Cancel</button>
+            </Link>
         </>
     )
 }
