@@ -14,7 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery( 'FETCH_MOVIES', fetchAllMovies );
-    yield takeEvery( 'FETCH_SPECIFIC_MOVIE', fetchOneMovie )
+    yield takeEvery( 'GET_DETAILS', getDetails )
     yield takeEvery( 'SEND_MOVIE', sendSavedMovie  )
 }
 
@@ -31,15 +31,28 @@ function* fetchAllMovies() {
         
 }
 
+////THIS WAS MY ORIGINAL SAGA
+////REPLACED WITH SAGA BELOW FOR DETAILS PAGE
 //This is the saga for getting a specific movie from the db
-function* fetchOneMovie( action ){
+// function* fetchOneMovie( action ){
+//     try{
+//         const movie = yield axios.get('/api/movie/' + action.payload );
+//         console.log( 'get specific movie:', action.payload );
+//         yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
+        
+//     } catch{
+//         console.log( 'error in fetchOneMovie saga' );
+//     }
+// }
+
+function* getDetails( action ){
     try{
-        const movie = yield axios.get('/api/movie/' + action.payload );
-        console.log( 'get specific movie:', action.payload );
-        yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
+        const movies = yield axios.get('/api/movie/');
+        console.log( 'get details:', action.payload );
+        yield put({ type: 'SET_DETAILS', payload: movies.data })
         
     } catch{
-        console.log( 'error in fetchOneMovie saga' );
+        console.log( 'error in getDetails saga' );
     }
 }
 
@@ -56,6 +69,8 @@ function* sendSavedMovie( action ){
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
+
+////REDUCERS GO HERE
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
     switch (action.type) {
@@ -66,14 +81,24 @@ const movies = (state = [], action) => {
     }
 }
 
-// This reducer is for opening specific movies in /details
-const specificMovie = ( state=[], action ) =>{
-    if ( action.type === 'SET_SPECIFIC_MOVIE' ){
-        console.log( 'in specificMovie reducer', action );
+const movieDetails = ( state=[], action ) =>{
+    if ( action.type === 'SET_DETAILS' ){
+        console.log( 'in movieDetails reducer', action );
         state = action.payload;
     }
     return state;
 }
+
+////THIS WAS MY ORIGINAL
+////REPLACED WITH NEW REDUCER ABOVE
+// This reducer is for opening specific movies in /details
+// const specificMovie = ( state=[], action ) =>{
+//     if ( action.type === 'SET_SPECIFIC_MOVIE' ){
+//         console.log( 'in specificMovie reducer', action );
+//         state = action.payload;
+//     }
+//     return state;
+// }
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -90,7 +115,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        specificMovie,
+        movieDetails,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
