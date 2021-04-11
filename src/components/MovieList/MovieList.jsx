@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import Nav from '../Nav/Nav';
 import './MovieList.css'
 
 function MovieList() {
@@ -34,7 +35,8 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
+            <Nav />
+            <h2>MovieList</h2>
             <section className="movies">
                 {movies.map(movie => {
                     return (

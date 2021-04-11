@@ -24,7 +24,7 @@ const AddMovie = () => {
     }
     const handleGenres = ( event ) =>{
         console.log( 'in handleGenres', event.target.value );
-        // NEEDED FOR STRETCHsetGenres( [...genres, event.target.value] )
+        //NEEDED FOR STRETCHsetGenres( [...genres, event.target.value] )
         //Switch statement to get id# to POST --gotta be more efficient way but...
         switch( event.target.value ){
             case 'Adventure':
@@ -73,6 +73,7 @@ const AddMovie = () => {
         console.log( 'in addMovie', object ); //had array in params as part of stretch
         setTempMovie({ ...tempMovie, genre_id: genreId });
         dispatch({ type: 'SEND_MOVIE', payload: object })
+        //use history to go back to gallery after dispatch
        // dispatchEvent({ type: 'SEND_GENRES', payload: array }) //attempting stretch, but is this even needed?
     }
 
@@ -100,6 +101,7 @@ const AddMovie = () => {
                 <option>Space-Opera</option>
                 <option>Superhero</option>
             </select>
+            {/* YOU NEED CANCEL BUTTON THAT GOES BACK TO GALLERY ( LINK ) */}
             {/* TRIED FOR STRETCH GOAL, CANT GET TO WORK */}
             {/* <p>Selected genres:</p>
             <ul>
