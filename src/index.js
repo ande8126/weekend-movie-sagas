@@ -14,8 +14,9 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery( 'FETCH_MOVIES', fetchAllMovies );
-    yield takeEvery( 'GET_DETAILS', getDetails )
-    yield takeEvery( 'SEND_MOVIE', sendSavedMovie  )
+    yield takeEvery( 'GET_GENRES', getGenres );
+    yield takeEvery( 'GET_DETAILS', getDetails );
+    yield takeEvery( 'SEND_MOVIE', sendSavedMovie  );
 }
 
 function* fetchAllMovies( action ) {
@@ -31,30 +32,29 @@ function* fetchAllMovies( action ) {
         
 }
 
-//THIS WAS MY ORIGINAL SAGA
-//This is the saga for getting a specific movie from the db
-function* getDetails( action ){
+//This is the saga for getting a specific movie's genres from the db
+function* getGenres( action ){
     try{
-        const movie = yield axios.get('/api/movie/' + action.payload );
-        console.log( 'get specific movie:', action.payload );
-        yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
+        const movie = yield axios.get('/api/genre/' + action.payload );
+        console.log( 'get genres', action.payload );
+        yield put({ type: 'SET_GENRES', payload: movie.data })
         
     } catch{
         console.log( 'error in getDetails saga' );
     }
 }
 
-////TRIED THIS FOR DETAILS SAGA BUT GOING BACK TO SOMETHING ELSE
-// function* getDetails( action ){
-//     try{
-//         const movies = yield axios.get('/api/movie', { params: { type: action.payload } } );
-//         console.log( 'get details:', action.payload );
-//         yield put({ type: 'SET_DETAILS', payload: movies.data })
+//This is the saga for getting a specific movie's details from the db
+function* getDetails( action ){
+    try{
+        const movie = yield axios.get('/api/movie/' + action.payload );
+        console.log( 'get details', action.payload );
+        yield put({ type: 'SET_DETAILS', payload: movie.data[0] })
         
-//     } catch{
-//         console.log( 'error in getDetails saga' );
-//     }
-// }
+    } catch{
+        console.log( 'error in getDetails saga' );
+    }
+}
 
 //saga for adding a movie to db (axios POST\)
 function* sendSavedMovie( action ){
@@ -81,15 +81,15 @@ const movies = (state = [], action) => {
     }
 }
 
-//THIS WAS MY ORIGINAL
-//REPLACED WITH NEW REDUCER ABOVE
 //This reducer is for opening specific movies in /details
-const specificMovie = ( state=[], action ) =>{
-    if ( action.type === 'SET_SPECIFIC_MOVIE' ){
-        console.log( 'in specificMovie reducer', action );
-        state = action.payload;
+const specificMovie = ( state = {} , action ) =>{
+    switch( action.type ) {
+        case 'SET_DETAILS':
+            console.log('getting from saga:', action.payload);
+            return action.payload;
+        default:
+            return state;
     }
-    return state;
 }
 
 // Used to store the movie genres

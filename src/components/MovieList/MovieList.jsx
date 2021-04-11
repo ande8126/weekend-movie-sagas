@@ -11,8 +11,6 @@ function MovieList() {
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
 
-
-
     ////THIS WAS MY ORIGINAL FUNCTION TO MAKE GET CALL ON CLICK
     ////click should also run GET route for specific movie clicked
     // const getSpecificMovie = ( movieId ) =>{
@@ -25,11 +23,6 @@ function MovieList() {
     //     history.push('/details');
     // }
     
-    
-    //query needs joins to bring in genre
-    //useHistory to push to /details
-
-
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
@@ -39,7 +32,7 @@ function MovieList() {
             <Nav />
             <h2>MovieList</h2>
             <section className="movies">
-                {movies.map( (movie, i) => {
+                {movies.map( (movie) => {
                     return (
                         //ORIGINAL:
                         // <div onClick={()=>getSpecificMovie(movie.id)} key={movie.id} >
@@ -47,7 +40,7 @@ function MovieList() {
                         //     <img src={movie.poster} alt={movie.title}/>
                         // </div>
                         //STRETCH
-                    <Link to={`/list/${i}`} key={i}>
+                    <Link to={`/list/${movie.id}`} key={movie.id}>
                         <div>
                             <h3>{movie.title}</h3>
                             <img src={movie.poster} alt={movie.title}/>

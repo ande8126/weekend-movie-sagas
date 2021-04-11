@@ -1,0 +1,19 @@
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: rgb(64, 78, 83);
+    padding: 25px;
+}
+
+Link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+p{
+    background-color: lightblue;
+    padding: 10px
+}
