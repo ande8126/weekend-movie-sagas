@@ -18,10 +18,10 @@ function* rootSaga() {
     yield takeEvery( 'SEND_MOVIE', sendSavedMovie  )
 }
 
-function* fetchAllMovies() {
+function* fetchAllMovies( action ) {
     // get all movies from the DB
     try {
-        const movies = yield axios.get('/api/movie');
+        const movies = yield axios.get('/api/movie', { params: { type: action.payload } } );
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
@@ -47,7 +47,7 @@ function* fetchAllMovies() {
 
 function* getDetails( action ){
     try{
-        const movies = yield axios.get('/api/movie/');
+        const movies = yield axios.get('/api/movie', { params: { type: action.payload } } );
         console.log( 'get details:', action.payload );
         yield put({ type: 'SET_DETAILS', payload: movies.data })
         

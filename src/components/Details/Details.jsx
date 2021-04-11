@@ -7,7 +7,7 @@ function Details(){
     const dispatch = useDispatch();
     ////STRETCH GOAL
     useEffect(() => {
-        dispatch({ type: 'GET_DETAILS' }) //stretch - need redux store with genres too
+        dispatch({ type: 'GET_DETAILS', payload: 'details' }) //stretch - need redux store with genres too
     }, []);
 
     //params setup

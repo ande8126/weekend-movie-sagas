@@ -5,20 +5,43 @@ const pool = require('../modules/pool')
 
 //get route for all movies in db
 router.get('/', (req, res) => {
-  console.log( 'in original get route for all movies' );
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
-  pool.query(query)
-    .then( result => {
-      res.send(result.rows);
+  //doing a conditional here using req.query
+  //Saga GETS seemed limited one to each path
+  console.log( 'in GET route conditional', req.query["type"] );
+  if ( req.query["type"] === 'movieList' ){
+    const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+    pool.query(query)
+      .then( result => {
+        res.send(result.rows);
+      })
+      .catch(err => {
+        console.log('ERROR: Get all movies', err);
+        res.sendStatus(500)
+      })
+  }
+  else if ( req.query["type"] === 'details' ){
+    //stretch GET route for grabbing all details in joined table
+    console.log( 'in movie details GET');
+    //need movie description from movies table and genres from genre table
+    //join statement in query
+    const queryText = 
+    `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
+      FROM "movies_genres"
+      JOIN "movies" ON "movies".id = "movies_genres".movie_id
+      JOIN "genres" ON "genres".id = "movies_genres".genre_id;`;
+    pool.query( queryText )
+    .then( ( results )=>{
+      res.send( results.rows );
     })
-    .catch(err => {
-      console.log('ERROR: Get all movies', err);
-      res.sendStatus(500)
+    .catch ( ( err )=>{
+      console.log( 'err in movie details GET', err );
+      res.sendStatus( 500 );
     })
+  }
 
 });
 
-////THIS WAS MY ORIGINAL GET ROUTE FOR DETAILS, NEW ONE BELOW
+////THIS WAS MY ORIGINAL GET ROUTE FOR DETAILS, NEW ONE ABOVE
 //get route for getting clickec movie to gallery
 // router.get('/:movieId', ( req, res )=>{
 //   movieId = req.params["movieId"]
@@ -40,26 +63,6 @@ router.get('/', (req, res) => {
 //     res.sendStatus( 500 );
 //   })
 // })
-
-//stretch GET route for grabbing all details in joined table
-router.get('/', ( req, res )=>{
-  console.log( 'in movie details GET');
-  //need movie description from movies table and genres from genre table
-  //join statement in query
-  const queryText = 
-  `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
-    FROM "movies_genres"
-    JOIN "movies" ON "movies".id = "movies_genres".movie_id
-    JOIN "genres" ON "genres".id = "movies_genres".genre_id;`;
-  pool.query( queryText )
-  .then( ( results )=>{
-    res.send( results.rows );
-  })
-  .catch ( ( err )=>{
-    console.log( 'err in movie details GET', err );
-    res.sendStatus( 500 );
-  })
-})
 
 //post route for adding movies
 router.post('/', (req, res) => {
