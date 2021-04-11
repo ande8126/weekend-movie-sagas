@@ -17,8 +17,8 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
         [x] create details component
         [x] add route and hashrouter that works for each click -- check Edan's lecture
     [ ] Have a way to get to the Add Movie Page
-[ ] Details page
-    [ ] show all details including ALL genres for the selected movie. 
+[x] Details page
+    [x] show all details including ALL genres for the selected movie. 
         [x] useSelector to draw down from redux
         [x] show on DOM
         [x] Reducer in index.js
@@ -28,13 +28,13 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
     [x] The details page should have a Back to List button, which should bring the user to the Home/List Page
     [ ] Base functionality does not require the movie details to load correctly after refresh of the browser.
 [ ] Add Movie Page
-    [ ] an input field (for the movie title)
-    [ ] an input field (for the movie poster image URL))
-    [ ] a textarea (for the movie description)
-    [ ] a dropdown (for the genres)
+    [x] an input field (for the movie title)
+    [x] an input field (for the movie poster image URL))
+    [x] a textarea (for the movie description)
+    [x] a dropdown (for the genres)
     [ ] Buttons
         [ ] Cancel button, which should bring the user to the Home/List Page
-        [ ]Save button, which should update the title and description in the database and bring the user to the Home/List Page (which now has the new movie)
+        [x]Save button, which should update the title and description in the database and bring the user to the Home/List Page (which now has the new movie)
     - Base functionality does not require being able to select more than one genre for a new movie
     - Hint: Look at the /api/movie POST route -- it's been made already
     - Hint: You'll want to use the genres that are in the db for your dropdown
