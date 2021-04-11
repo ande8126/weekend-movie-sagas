@@ -28,62 +28,50 @@ const AddMovie = () => {
         //Switch statement to get id# to POST --gotta be more efficient way but...
         switch( event.target.value ){
             case 'Adventure':
-                setGenreId(1)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 1 })
                 break
             case 'Animated':
-                setGenreId(2)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 2 })
                 break
             case 'Biographical':
-                setGenreId(3)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 3 })
                 break
             case 'Comedy':
-                setGenreId(4)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 4 })
                 break
-            case 'Disaster':
-                setGenreId(5)        
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+            case 'Disaster':      
+                setTempMovie({ ...tempMovie, genre_id: 5 })
                 break
             case 'Drama':
-                setGenreId(6)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 6 })
                 break
             case 'Epic':
-                setGenreId(7)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 7 })
                 break
             case 'Fantasy':
-                setGenreId(8)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 8 })
                 break
             case 'Musical':
-                setGenreId(9)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 9 })
                 break
             case 'Romantic':
-                setGenreId(10)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 10 })
                 break
             case 'Science Fiction':
-                setGenreId(11)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 11 })
                 break
             case 'Space-Opera':
-                setGenreId(12)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 12 })
                 break
             case 'Superhero':
-                setGenreId(13)
-                setTempMovie({ ...tempMovie, genre_id: genreId })
+                setTempMovie({ ...tempMovie, genre_id: 13 })                
                 break
         }
     }
 
     const addMovie = ( object ) =>{
         console.log( 'in addMovie', object ); //had array in params as part of stretch
+        setTempMovie({ ...tempMovie, genre_id: genreId });
         dispatch({ type: 'SEND_MOVIE', payload: object })
        // dispatchEvent({ type: 'SEND_GENRES', payload: array }) //attempting stretch, but is this even needed?
     }
