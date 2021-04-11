@@ -15,6 +15,7 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery( 'FETCH_MOVIES', fetchAllMovies );
     yield takeEvery( 'FETCH_SPECIFIC_MOVIE', fetchOneMovie )
+    yield takeEvery( 'SEND_MOVIE', sendSavedMovie  )
 }
 
 function* fetchAllMovies() {
@@ -32,9 +33,8 @@ function* fetchAllMovies() {
 
 //This is the saga for getting a specific movie from the db
 function* fetchOneMovie( action ){
-    //get the clicked movie from the db
     try{
-        const movie = yield axios.get('/api/movie/' + action.payload);
+        const movie = yield axios.get('/api/movie/' + action.payload );
         console.log( 'get specific movie:', action.payload );
         yield put({ type: 'SET_SPECIFIC_MOVIE', payload: movie.data })
         
@@ -43,7 +43,15 @@ function* fetchOneMovie( action ){
     }
 }
 
-//saga for getGenres
+//saga for adding a movie to db (axios POST\)
+function* sendSavedMovie( action ){
+    try{
+        yield axios.post('/api/movie', action.payload );
+        console.log( 'send saved movie:', action.payload );
+    } catch{
+        console.log( 'error in sendSavedMovie saga');
+    }
+}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

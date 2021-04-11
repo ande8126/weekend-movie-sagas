@@ -14,20 +14,18 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 [x] setup database
 [ ] Home page
     [ ] When a movie poster is clicked, a user should be brought to the /details view for that movie.
-        [ ] create details component
-        [ ] add route and hashrouter that works for each click -- check Edan's lecture
-        [ ] wrap Link around movie poster
+        [x] create details component
+        [x] add route and hashrouter that works for each click -- check Edan's lecture
     [ ] Have a way to get to the Add Movie Page
 [ ] Details page
     [ ] show all details including ALL genres for the selected movie. 
-        [ ] dispatch from details page
-        [ ] useSelector to draw down from redux
-        [ ] show on DOM
-        [ ] Reducer in index.js
-        [ ] detailsSaga with axios call
-        [ ] detailsSaga put
-    [ ] Hint - You can make a GET request for a specific movie. Remember req.params and :id?
-    [ ] The details page should have a Back to List button, which should bring the user to the Home/List Page
+        [x] useSelector to draw down from redux
+        [x] show on DOM
+        [x] Reducer in index.js
+        [x] Saga with axios call
+        [x] Saga put
+    [x] Hint - You can make a GET request for a specific movie. Remember req.params and :id?
+    [x] The details page should have a Back to List button, which should bring the user to the Home/List Page
     [ ] Base functionality does not require the movie details to load correctly after refresh of the browser.
 [ ] Add Movie Page
     [ ] an input field (for the movie title)
