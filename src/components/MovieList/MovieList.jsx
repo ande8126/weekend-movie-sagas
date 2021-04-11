@@ -31,7 +31,7 @@ function MovieList() {
 
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_MOVIES', payload: 'movieList' });
+        dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
     return (

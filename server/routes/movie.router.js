@@ -7,8 +7,7 @@ const pool = require('../modules/pool')
 router.get('/', (req, res) => {
   //doing a conditional here using req.query
   //Saga GETS seemed limited one to each path
-  console.log( 'in GET route conditional', req.query["type"] );
-  if ( req.query["type"] === 'movieList' ){
+  console.log( 'in GET route for all movies');
     const query = `SELECT * FROM movies ORDER BY "title" ASC`;
     pool.query(query)
       .then( result => {
@@ -18,51 +17,50 @@ router.get('/', (req, res) => {
         console.log('ERROR: Get all movies', err);
         res.sendStatus(500)
       })
-  }
-  else if ( req.query["type"] === 'details' ){
-    //stretch GET route for grabbing all details in joined table
-    console.log( 'in movie details GET');
-    //need movie description from movies table and genres from genre table
-    //join statement in query
-    const queryText = 
-    `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
-      FROM "movies_genres"
-      JOIN "movies" ON "movies".id = "movies_genres".movie_id
-      JOIN "genres" ON "genres".id = "movies_genres".genre_id;`;
-    pool.query( queryText )
-    .then( ( results )=>{
-      res.send( results.rows );
-    })
-    .catch ( ( err )=>{
-      console.log( 'err in movie details GET', err );
-      res.sendStatus( 500 );
-    })
-  }
-
+      ////TRIED THIS, DIDN'T WORK
+  // else if ( req.query["type"] === 'details' ){
+  //   //stretch GET route for grabbing all details in joined table
+  //   console.log( 'in movie details GET');
+  //   //need movie description from movies table and genres from genre table
+  //   //join statement in query
+  //   const queryText = 
+  //   `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
+  //     FROM "movies_genres"
+  //     JOIN "movies" ON "movies".id = "movies_genres".movie_id
+  //     JOIN "genres" ON "genres".id = "movies_genres".genre_id;`;
+  //   pool.query( queryText )
+  //   .then( ( results )=>{
+  //     res.send( results.rows );
+  //   })
+  //   .catch ( ( err )=>{
+  //     console.log( 'err in movie details GET', err );
+  //     res.sendStatus( 500 );
+  //   })
+  // }
 });
 
-////THIS WAS MY ORIGINAL GET ROUTE FOR DETAILS, NEW ONE ABOVE
-//get route for getting clickec movie to gallery
-// router.get('/:movieId', ( req, res )=>{
-//   movieId = req.params["movieId"]
-//   console.log( 'in movie details GET', movieId );
-//   //need movie description from movies table and genres from genre table
-//   //join statement in query
-//   const queryText = 
-//   `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
-//     FROM "movies_genres"
-//     JOIN "movies" ON "movies".id = "movies_genres".movie_id
-//     JOIN "genres" ON "genres".id = "movies_genres".genre_id
-//     WHERE "movies".id = $1;`;
-//   pool.query( queryText, [ movieId ] )
-//   .then( ( results )=>{
-//     res.send( results.rows );
-//   })
-//   .catch ( ( err )=>{
-//     console.log( 'err in movieId GET', err );
-//     res.sendStatus( 500 );
-//   })
-// })
+//THIS WAS MY ORIGINAL GET ROUTE FOR DETAILS, NEW ONE ABOVE
+//get route for getting clicked movie to gallery
+router.get('/:movieId', ( req, res )=>{
+  movieId = req.params["movieId"]
+  console.log( 'in movie details GET', movieId );
+  //need movie description from movies table and genres from genre table
+  //join statement in query
+  const queryText = 
+  `SELECT "movies".title, "movies".poster, "movies".description, "movies".id, "genres".name AS "genre"
+    FROM "movies_genres"
+    JOIN "movies" ON "movies".id = "movies_genres".movie_id
+    JOIN "genres" ON "genres".id = "movies_genres".genre_id
+    WHERE "movies".id = $1;`;
+  pool.query( queryText, [ movieId ] )
+  .then( ( results )=>{
+    res.send( results.rows );
+  })
+  .catch ( ( err )=>{
+    console.log( 'err in movieId GET', err );
+    res.sendStatus( 500 );
+  })
+})
 
 //post route for adding movies
 router.post('/', (req, res) => {
